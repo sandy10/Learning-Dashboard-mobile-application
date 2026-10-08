@@ -24,4 +24,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "LearningDashboardMobileApp"
 include(":app")
- 
+include(":core:domain")
+include(":core:network")
+include(":core:database")
+include(":core:data")
+include(":core:ui")
+include(":feature:auth")
+include(":feature:dashboard")
+include(":feature:coursedetail")

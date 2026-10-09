@@ -63,10 +63,17 @@ import com.learning.dashboardmobileapp.core.ui.components.LearningProgressBar
 import com.learning.dashboardmobileapp.core.ui.components.OfflineStatusBanner
 import com.learning.dashboardmobileapp.core.ui.components.ShimmerCourseCard
 import com.learning.dashboardmobileapp.core.ui.theme.AppBackground
+import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingBg
+import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingText
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryIndigo
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryLight
+import com.learning.dashboardmobileapp.core.ui.theme.SurfaceSubtle
 import com.learning.dashboardmobileapp.core.ui.theme.TertiarySuccessLight
 import com.learning.dashboardmobileapp.core.ui.theme.TertiarySuccessText
+import com.learning.dashboardmobileapp.core.ui.theme.TextMuted
+import com.learning.dashboardmobileapp.core.ui.theme.WarningYellowBg
+import com.learning.dashboardmobileapp.core.ui.theme.WarningYellowBorder
+import com.learning.dashboardmobileapp.core.ui.theme.WarningYellowText
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -137,7 +144,7 @@ fun DashboardScreen(
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
                                 text = UiConstants.DASHBOARD_SUBTITLE,
-                                style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
+                                style = MaterialTheme.typography.bodySmall.copy(color = TextMuted)
                             )
                         }
 
@@ -160,7 +167,7 @@ fun DashboardScreen(
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ExitToApp,
                                     contentDescription = UiConstants.LOGOUT_DESC,
-                                    tint = Color(0xFF6C757D)
+                                    tint = TextMuted
                                 )
                             }
                         }
@@ -253,14 +260,14 @@ fun DashboardScreen(
                                 item {
                                     Surface(
                                         shape = RoundedCornerShape(10.dp),
-                                        color = Color(0xFFFFF3CD),
-                                        border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFEEBA)),
+                                        color = WarningYellowBg,
+                                        border = androidx.compose.foundation.BorderStroke(1.dp, WarningYellowBorder),
                                         modifier = Modifier.fillMaxWidth()
                                     ) {
                                         Text(
                                             text = state.errorMessage,
                                             style = MaterialTheme.typography.bodySmall.copy(
-                                                color = Color(0xFF856404),
+                                                color = WarningYellowText,
                                                 fontWeight = FontWeight.Medium
                                             ),
                                             modifier = Modifier.padding(10.dp)
@@ -295,7 +302,7 @@ fun StatePreviewSelector(
     Surface(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(20.dp),
-        color = Color(0xFFF1F3F5)
+        color = NeutralPendingBg
     ) {
         Row(
             modifier = Modifier
@@ -323,7 +330,7 @@ fun StatePreviewSelector(
                     Text(
                         text = label,
                         style = MaterialTheme.typography.labelSmall.copy(
-                            color = if (isSelected) Color.White else Color(0xFF495057),
+                            color = if (isSelected) Color.White else NeutralPendingText,
                             fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
                         )
                     )
@@ -355,7 +362,7 @@ fun ActiveCurriculumSummaryCard(
                 Text(
                     text = UiConstants.ACTIVE_CURRICULUM_TITLE,
                     style = MaterialTheme.typography.labelSmall.copy(
-                        color = Color(0xFF6C757D),
+                        color = TextMuted,
                         fontWeight = FontWeight.Bold,
                         letterSpacing = 0.8.sp
                     )
@@ -368,7 +375,7 @@ fun ActiveCurriculumSummaryCard(
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
                     text = "$totalEnrolled ${UiConstants.COURSES_ENROLLED_SUFFIX}",
-                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
+                    style = MaterialTheme.typography.bodySmall.copy(color = TextMuted)
                 )
             }
 
@@ -425,7 +432,7 @@ fun CourseCard(
                     modifier = Modifier
                         .size(46.dp)
                         .clip(RoundedCornerShape(12.dp))
-                        .background(Color(0xFFF1F3F5)),
+                        .background(NeutralPendingBg),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
@@ -446,19 +453,19 @@ fun CourseCard(
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
                         text = "${UiConstants.INSTRUCTOR_PREFIX}${course.instructor}",
-                        style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
+                        style = MaterialTheme.typography.bodySmall.copy(color = TextMuted)
                     )
                 }
 
                 // Offline ready badge
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = Color(0xFFF8F9FA)
+                    color = SurfaceSubtle
                 ) {
                     Text(
                         text = UiConstants.OFFLINE_READY_BADGE,
                         style = MaterialTheme.typography.labelSmall.copy(
-                            color = Color(0xFF6C757D),
+                            color = TextMuted,
                             fontSize = 11.sp
                         ),
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
@@ -482,7 +489,7 @@ fun CourseCard(
             ) {
                 Text(
                     text = "$completedCount of ${course.lessonsCount} ${UiConstants.LESSONS_COMPLETED_SUFFIX}",
-                    style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFF6C757D))
+                    style = MaterialTheme.typography.labelSmall.copy(color = TextMuted)
                 )
 
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -515,14 +522,14 @@ fun CourseCard(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.MenuBook,
                         contentDescription = null,
-                        tint = Color(0xFF6C757D),
+                        tint = TextMuted,
                         modifier = Modifier.size(16.dp)
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = "${course.lessonsCount} ${UiConstants.LESSONS_SUFFIX}",
                         style = MaterialTheme.typography.bodySmall.copy(
-                            color = Color(0xFF495057),
+                            color = NeutralPendingText,
                             fontWeight = FontWeight.Medium
                         )
                     )

@@ -73,11 +73,21 @@ import com.learning.dashboardmobileapp.core.ui.UiConstants
 import com.learning.dashboardmobileapp.core.ui.components.LearningProgressBar
 import com.learning.dashboardmobileapp.core.ui.components.LessonStatusChip
 import com.learning.dashboardmobileapp.core.ui.theme.AppBackground
+import com.learning.dashboardmobileapp.core.ui.theme.BorderSubtle
+import com.learning.dashboardmobileapp.core.ui.theme.CategoryPillBg
+import com.learning.dashboardmobileapp.core.ui.theme.IconGrayDisabled
+import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingBg
+import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingText
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryIndigo
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryLight
+import com.learning.dashboardmobileapp.core.ui.theme.SecondaryTeal
+import com.learning.dashboardmobileapp.core.ui.theme.SurfaceLightGray
+import com.learning.dashboardmobileapp.core.ui.theme.SurfaceSubtle
 import com.learning.dashboardmobileapp.core.ui.theme.TertiarySuccess
 import com.learning.dashboardmobileapp.core.ui.theme.TertiarySuccessLight
 import com.learning.dashboardmobileapp.core.ui.theme.TertiarySuccessText
+import com.learning.dashboardmobileapp.core.ui.theme.TextMuted
+import com.learning.dashboardmobileapp.core.ui.theme.TextPrimary
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -118,7 +128,7 @@ fun CourseDetailScreen(
                     Column {
                         Text(
                             text = UiConstants.APP_NAME,
-                            style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFF6C757D))
+                            style = MaterialTheme.typography.labelSmall.copy(color = TextMuted)
                         )
                         Text(
                             text = UiConstants.COURSE_OVERVIEW_TITLE,
@@ -131,7 +141,7 @@ fun CourseDetailScreen(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = UiConstants.BACK_BUTTON_DESC,
-                            tint = Color(0xFF191C1E)
+                            tint = TextPrimary
                         )
                     }
                 },
@@ -224,7 +234,7 @@ fun CourseDetailScreen(
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 text = UiConstants.ONLINE_BADGE,
-                                style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFF6C757D))
+                                style = MaterialTheme.typography.labelSmall.copy(color = TextMuted)
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Icon(
@@ -262,12 +272,12 @@ fun CourseDetailScreen(
                             Spacer(modifier = Modifier.width(8.dp))
                             Surface(
                                 shape = RoundedCornerShape(12.dp),
-                                color = Color(0xFFE9ECEF)
+                                color = SurfaceLightGray
                             ) {
                                 Text(
                                     text = "${details.lessons.size} ${UiConstants.LISTED_SUFFIX}",
                                     style = MaterialTheme.typography.labelSmall.copy(
-                                        color = Color(0xFF495057),
+                                        color = NeutralPendingText,
                                         fontSize = 11.sp
                                     ),
                                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
@@ -339,14 +349,14 @@ fun CourseDetailScreen(
                                 Spacer(modifier = Modifier.height(2.dp))
                                 Text(
                                     text = "All ${details.course.lessonsCount} lessons available offline with exercise files.",
-                                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
+                                    style = MaterialTheme.typography.bodySmall.copy(color = TextMuted)
                                 )
                             }
 
                             Icon(
                                 imageVector = Icons.Default.Settings,
                                 contentDescription = null,
-                                tint = Color(0xFFADB5BD),
+                                tint = IconGrayDisabled,
                                 modifier = Modifier.size(20.dp)
                             )
                         }
@@ -380,7 +390,7 @@ fun CourseMainHeaderCard(
             ) {
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = Color(0xFFEDE9FE)
+                    color = CategoryPillBg
                 ) {
                     Text(
                         text = course.category,
@@ -424,7 +434,7 @@ fun CourseMainHeaderCard(
 
             Text(
                 text = "${UiConstants.INSTRUCTOR_DETAIL_PREFIX}${course.instructor}",
-                style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
+                style = MaterialTheme.typography.bodySmall.copy(color = TextMuted)
             )
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -433,7 +443,7 @@ fun CourseMainHeaderCard(
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(14.dp),
-                color = Color(0xFFF8F9FA)
+                color = SurfaceSubtle
             ) {
                 Column(
                     modifier = Modifier
@@ -452,7 +462,7 @@ fun CourseMainHeaderCard(
                     ) {
                         Text(
                             text = "$completedCount of ${course.lessonsCount} ${UiConstants.LESSONS_COMPLETED_SUFFIX}",
-                            style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFF6C757D))
+                            style = MaterialTheme.typography.labelSmall.copy(color = TextMuted)
                         )
 
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -496,7 +506,7 @@ fun QuickStatsRow(
         QuickStatCard(
             label = UiConstants.DOWNLOADED_LABEL,
             value = "${course.lessonsCount} / ${course.lessonsCount}",
-            valueColor = Color(0xFF00687A),
+            valueColor = SecondaryTeal,
             modifier = Modifier.weight(1f)
         )
         QuickStatCard(
@@ -530,7 +540,7 @@ fun QuickStatCard(
             Text(
                 text = label,
                 style = MaterialTheme.typography.labelSmall.copy(
-                    color = Color(0xFF6C757D),
+                    color = TextMuted,
                     fontSize = 11.sp
                 )
             )
@@ -592,15 +602,15 @@ fun LessonItemCard(
                         modifier = Modifier
                             .size(36.dp)
                             .clip(CircleShape)
-                            .background(Color(0xFFF1F3F5))
-                            .border(1.5.dp, Color(0xFFCED4DA), CircleShape),
+                            .background(NeutralPendingBg)
+                            .border(1.5.dp, BorderSubtle, CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
                         Box(
                             modifier = Modifier
                                 .size(8.dp)
                                 .clip(CircleShape)
-                                .background(Color(0xFFADB5BD))
+                                .background(IconGrayDisabled)
                         )
                     }
                 }
@@ -615,7 +625,7 @@ fun LessonItemCard(
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
                         text = "${lesson.durationMinutes} ${UiConstants.MINS_SEPARATOR}${lesson.type.displayName}",
-                        style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
+                        style = MaterialTheme.typography.bodySmall.copy(color = TextMuted)
                     )
                 }
 
@@ -628,7 +638,7 @@ fun LessonItemCard(
                 Icon(
                     imageVector = if (isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
                     contentDescription = null,
-                    tint = Color(0xFF6C757D),
+                    tint = TextMuted,
                     modifier = Modifier.size(20.dp)
                 )
             }
@@ -648,7 +658,7 @@ fun LessonItemCard(
                         Surface(
                             modifier = Modifier.fillMaxWidth(),
                             shape = RoundedCornerShape(10.dp),
-                            color = Color(0xFFF8F9FA)
+                            color = SurfaceSubtle
                         ) {
                             Row(
                                 modifier = Modifier.padding(12.dp),
@@ -663,7 +673,7 @@ fun LessonItemCard(
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = lesson.description,
-                                    style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF495057))
+                                    style = MaterialTheme.typography.bodySmall.copy(color = NeutralPendingText)
                                 )
                             }
                         }

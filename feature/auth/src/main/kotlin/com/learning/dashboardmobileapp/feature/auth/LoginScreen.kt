@@ -62,9 +62,15 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.learning.dashboardmobileapp.core.ui.UiConstants
 import com.learning.dashboardmobileapp.core.ui.theme.AppBackground
+import com.learning.dashboardmobileapp.core.ui.theme.ErrorLightBg
+import com.learning.dashboardmobileapp.core.ui.theme.ErrorLightBorder
+import com.learning.dashboardmobileapp.core.ui.theme.ErrorRed
+import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingBg
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryIndigo
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryIndigoVariant
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryLight
+import com.learning.dashboardmobileapp.core.ui.theme.TextFieldBorder
+import com.learning.dashboardmobileapp.core.ui.theme.TextMuted
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -146,7 +152,7 @@ fun LoginScreen(
             Text(
                 text = UiConstants.APP_TAGLINE,
                 style = MaterialTheme.typography.bodyMedium.copy(
-                    color = Color(0xFF6C757D),
+                    color = TextMuted,
                     fontWeight = FontWeight.Medium
                 )
             )
@@ -184,7 +190,7 @@ fun LoginScreen(
                             Icon(
                                 imageVector = Icons.Default.Email,
                                 contentDescription = null,
-                                tint = if (state.emailError != null) MaterialTheme.colorScheme.error else Color(0xFF6C757D)
+                                tint = if (state.emailError != null) MaterialTheme.colorScheme.error else TextMuted
                             )
                         },
                         isError = state.emailError != null,
@@ -197,7 +203,7 @@ fun LoginScreen(
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = PrimaryIndigo,
-                            unfocusedBorderColor = Color(0xFFDEE2E6)
+                            unfocusedBorderColor = TextFieldBorder
                         ),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -223,7 +229,7 @@ fun LoginScreen(
                             Icon(
                                 imageVector = Icons.Default.Lock,
                                 contentDescription = null,
-                                tint = if (state.passwordError != null) MaterialTheme.colorScheme.error else Color(0xFF6C757D)
+                                tint = if (state.passwordError != null) MaterialTheme.colorScheme.error else TextMuted
                             )
                         },
                         trailingIcon = {
@@ -231,7 +237,7 @@ fun LoginScreen(
                                 Icon(
                                     imageVector = if (state.isPasswordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
                                     contentDescription = if (state.isPasswordVisible) UiConstants.HIDE_PASSWORD_DESC else UiConstants.SHOW_PASSWORD_DESC,
-                                    tint = Color(0xFF6C757D)
+                                    tint = TextMuted
                                 )
                             }
                         },
@@ -252,7 +258,7 @@ fun LoginScreen(
                         shape = RoundedCornerShape(12.dp),
                         colors = OutlinedTextFieldDefaults.colors(
                             focusedBorderColor = PrimaryIndigo,
-                            unfocusedBorderColor = Color(0xFFDEE2E6)
+                            unfocusedBorderColor = TextFieldBorder
                         ),
                         modifier = Modifier.fillMaxWidth()
                     )
@@ -262,14 +268,14 @@ fun LoginScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                         Surface(
                             shape = RoundedCornerShape(8.dp),
-                            color = Color(0xFFFFF0F0),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFFFFCDD2)),
+                            color = ErrorLightBg,
+                            border = androidx.compose.foundation.BorderStroke(1.dp, ErrorLightBorder),
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
                                 text = state.errorMessage,
                                 style = MaterialTheme.typography.bodySmall.copy(
-                                    color = Color(0xFFBA1A1A),
+                                    color = ErrorRed,
                                     fontWeight = FontWeight.Medium
                                 ),
                                 modifier = Modifier.padding(12.dp)
@@ -337,7 +343,7 @@ fun LoginScreen(
                             text = UiConstants.DEMO_ACCOUNT_TITLE,
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontWeight = FontWeight.Bold,
-                                color = Color(0xFF6C757D),
+                                color = TextMuted,
                                 letterSpacing = 1.sp
                             )
                         )
@@ -371,11 +377,11 @@ fun LoginScreen(
                     ) {
                         Text(
                             text = UiConstants.DEMO_EMAIL_LABEL,
-                            style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
+                            style = MaterialTheme.typography.bodySmall.copy(color = TextMuted)
                         )
                         Surface(
                             shape = RoundedCornerShape(6.dp),
-                            color = Color(0xFFF1F3F5)
+                            color = NeutralPendingBg
                         ) {
                             Text(
                                 text = UiConstants.DEMO_EMAIL_VALUE,
@@ -397,11 +403,11 @@ fun LoginScreen(
                     ) {
                         Text(
                             text = UiConstants.DEMO_PASSWORD_LABEL,
-                            style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
+                            style = MaterialTheme.typography.bodySmall.copy(color = TextMuted)
                         )
                         Surface(
                             shape = RoundedCornerShape(6.dp),
-                            color = Color(0xFFF1F3F5)
+                            color = NeutralPendingBg
                         ) {
                             Text(
                                 text = UiConstants.DEMO_PASSWORD_VALUE,

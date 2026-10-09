@@ -48,12 +48,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.learning.dashboardmobileapp.core.ui.UiConstants
+import com.learning.dashboardmobileapp.core.ui.theme.BorderLight
+import com.learning.dashboardmobileapp.core.ui.theme.DangerLightBg
+import com.learning.dashboardmobileapp.core.ui.theme.ErrorLightBg
+import com.learning.dashboardmobileapp.core.ui.theme.ErrorLightBorder
+import com.learning.dashboardmobileapp.core.ui.theme.ErrorRed
 import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingBg
 import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingText
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryIndigo
+import com.learning.dashboardmobileapp.core.ui.theme.SurfaceLightGray
 import com.learning.dashboardmobileapp.core.ui.theme.TertiarySuccess
 import com.learning.dashboardmobileapp.core.ui.theme.TertiarySuccessLight
 import com.learning.dashboardmobileapp.core.ui.theme.TertiarySuccessText
+import com.learning.dashboardmobileapp.core.ui.theme.TextMuted
+import com.learning.dashboardmobileapp.core.ui.theme.WarningYellowBg
+import com.learning.dashboardmobileapp.core.ui.theme.WarningYellowText
 
 @Composable
 fun OfflineStatusBanner(
@@ -73,8 +82,8 @@ fun OfflineStatusBanner(
         ) {
             // Left chip: Status
             val isEffectivelyOnline = isOnline && !isSimulateOffline
-            val bgColor = if (isEffectivelyOnline) TertiarySuccessLight else Color(0xFFFFF3CD)
-            val textColor = if (isEffectivelyOnline) TertiarySuccessText else Color(0xFF856404)
+            val bgColor = if (isEffectivelyOnline) TertiarySuccessLight else WarningYellowBg
+            val textColor = if (isEffectivelyOnline) TertiarySuccessText else WarningYellowText
             val icon = if (isEffectivelyOnline) Icons.Default.CheckCircle else Icons.Default.CloudOff
             val statusText = if (isEffectivelyOnline) UiConstants.STATUS_SYNCED_READY else UiConstants.STATUS_OFFLINE_MODE
 
@@ -107,13 +116,13 @@ fun OfflineStatusBanner(
                 onClick = onToggleSimulateOffline,
                 shape = RoundedCornerShape(20.dp),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = if (isSimulateOffline) Color(0xFFFFE5E5) else Color.White
+                    containerColor = if (isSimulateOffline) DangerLightBg else Color.White
                 ),
                 border = ButtonDefaults.outlinedButtonBorder.copy(
                     brush = Brush.linearGradient(
                         listOf(
-                            if (isSimulateOffline) Color(0xFFBA1A1A) else Color(0xFFD0D5DD),
-                            if (isSimulateOffline) Color(0xFFBA1A1A) else Color(0xFFD0D5DD)
+                            if (isSimulateOffline) ErrorRed else BorderLight,
+                            if (isSimulateOffline) ErrorRed else BorderLight
                         )
                     )
                 ),
@@ -122,7 +131,7 @@ fun OfflineStatusBanner(
                 Text(
                     text = if (isSimulateOffline) UiConstants.BUTTON_ONLINE_MODE else UiConstants.BUTTON_SIMULATE_OFFLINE,
                     style = MaterialTheme.typography.labelSmall.copy(
-                        color = if (isSimulateOffline) Color(0xFFBA1A1A) else MaterialTheme.colorScheme.onSurface,
+                        color = if (isSimulateOffline) ErrorRed else MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium
                     )
                 )
@@ -145,7 +154,7 @@ fun LearningProgressBar(
         ) {
             Text(
                 text = UiConstants.PROGRESS_LABEL,
-                style = MaterialTheme.typography.labelMedium.copy(color = Color(0xFF495057))
+                style = MaterialTheme.typography.labelMedium.copy(color = NeutralPendingText)
             )
             Text(
                 text = "$clamped%",
@@ -161,7 +170,7 @@ fun LearningProgressBar(
                 .fillMaxWidth()
                 .height(8.dp)
                 .clip(RoundedCornerShape(4.dp))
-                .background(Color(0xFFE9ECEF))
+                .background(SurfaceLightGray)
         ) {
             Box(
                 modifier = Modifier
@@ -226,9 +235,9 @@ fun ErrorCard(
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF0F0)),
+        colors = CardDefaults.cardColors(containerColor = ErrorLightBg),
         border = CardDefaults.outlinedCardBorder().copy(
-            brush = Brush.linearGradient(listOf(Color(0xFFFFCDD2), Color(0xFFFFCDD2)))
+            brush = Brush.linearGradient(listOf(ErrorLightBorder, ErrorLightBorder))
         )
     ) {
         Column(
@@ -240,7 +249,7 @@ fun ErrorCard(
             Icon(
                 imageVector = Icons.Default.SignalCellularConnectedNoInternet4Bar,
                 contentDescription = null,
-                tint = Color(0xFFBA1A1A),
+                tint = ErrorRed,
                 modifier = Modifier.size(36.dp)
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -248,13 +257,13 @@ fun ErrorCard(
                 text = UiConstants.SOMETHING_WENT_WRONG,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFFBA1A1A)
+                    color = ErrorRed
                 )
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = message,
-                style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF495057)),
+                style = MaterialTheme.typography.bodySmall.copy(color = NeutralPendingText),
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -303,7 +312,7 @@ fun EmptyCoursesCard(
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = UiConstants.EMPTY_COURSES_DESCRIPTION,
-                style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D)),
+                style = MaterialTheme.typography.bodySmall.copy(color = TextMuted),
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(16.dp))

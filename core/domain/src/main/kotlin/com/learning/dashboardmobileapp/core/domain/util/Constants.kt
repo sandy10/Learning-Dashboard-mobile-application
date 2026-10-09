@@ -15,6 +15,8 @@ object AuthConstants {
     const val ERROR_LOGOUT_FAILED = "Logout failed"
     const val EMAIL_REGEX_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
     const val MIN_PASSWORD_LENGTH = 6
+    const val MAX_EMAIL_LENGTH = 254
+    const val MAX_PASSWORD_LENGTH = 128
 }
 
 object CourseConstants {

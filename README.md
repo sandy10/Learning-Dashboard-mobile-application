@@ -24,9 +24,13 @@ We chose **Clean Architecture with Unidirectional Data Flow (UDF / MVI-style MVV
 
 ### 3. Security: Where would you store authentication tokens in a production application?
 
-* **Hardware-Backed Storage:** Store JWT access and refresh tokens using **EncryptedSharedPreferences** (Jetpack Security) backed by the **Android Keystore System** (AES-256-GCM / TEE or StrongBox Keymaster), ensuring tokens cannot be extracted from rooted devices or backup images.
-* **Secure In-Memory Access:** Decrypt tokens only into an in-memory session singleton (`SessionManager`) injected via an OkHttp/Ktor `Interceptor` and `Authenticator` for token auto-refresh. Never persist raw tokens in plaintext SharedPreferences, SQLite/Room, or device logs.
-* **Biometric Step-Up:** For high-security environments, bind Keystore key usage to `BiometricPrompt` with `setUserAuthenticationRequired(true)`.
+* **Hardware-Backed Cryptography (`KeystoreCryptoManager`):** Store JWT access and refresh tokens using **AndroidKeyStore** backed by hardware TEE/StrongBox with **AES-256-GCM** authenticated encryption (`AES/GCM/NoPadding`, 128-bit authentication tag, and cryptographically secure random 12-byte IV per operation). Even if a malicious actor accesses device storage or physical dumps, tokens cannot be extracted.
+* **Encrypted DataStore Session (`DataStoreSessionManager`):** The application integrates `CryptoManager` directly into `DataStoreSessionManager`, transparently encrypting auth tokens and sensitive credentials before writing to disk and decrypting upon retrieval.
+* **Window Protection (`FLAG_SECURE`):** `SecurityUtils.enableSecureWindow` prevents screenshots, screen recording, and OS Recent Apps task switcher thumbnail leaks.
+* **Network Transport Security (`network_security_config.xml`):** Cleartext HTTP traffic is strictly blocked (`cleartextTrafficPermitted="false"`, `usesCleartextTraffic="false"`), enforcing TLS 1.2+ encryption.
+* **Backup & Anti-Tamper Hardening:** `allowBackup="false"`, `data_extraction_rules.xml`, and `backup_rules.xml` exclude sensitive session data from ADB backup and cloud extraction. `filterTouchesWhenObscured="true"` blocks tapjacking overlay attacks.
+* **Device Integrity & Root Detection:** `SecurityUtils.isDeviceRooted()` checks build test-keys, dangerous su binaries, and execution paths.
+* **Input Sanitization & Boundary Validation:** `EmailValidator` enforces RFC length bounds (254-char email, 128-char password) and rejects null bytes, control characters, and injection/script tags.
 
 ---
 

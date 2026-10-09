@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.learning.dashboardmobileapp.core.data.security.CryptoManager
 import com.learning.dashboardmobileapp.core.domain.model.User
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -20,10 +21,12 @@ interface SessionManager {
     suspend fun saveSession(token: String, user: User)
     suspend fun clearSession()
     suspend fun getCurrentUser(): User?
+    suspend fun getAuthToken(): String?
 }
 
 class DataStoreSessionManager(
-    private val context: Context
+    private val context: Context,
+    private val cryptoManager: CryptoManager
 ) : SessionManager {
 
     companion object {
@@ -47,12 +50,16 @@ class DataStoreSessionManager(
         }
 
     override suspend fun saveSession(token: String, user: User) {
+        val encryptedToken = cryptoManager.encrypt(token)
+        val encryptedEmail = cryptoManager.encrypt(user.email)
+        val encryptedName = cryptoManager.encrypt(user.name)
+
         context.dataStore.edit { preferences ->
             preferences[KEY_IS_LOGGED_IN] = true
-            preferences[KEY_AUTH_TOKEN] = token
+            preferences[KEY_AUTH_TOKEN] = encryptedToken
             preferences[KEY_USER_ID] = user.id
-            preferences[KEY_USER_EMAIL] = user.email
-            preferences[KEY_USER_NAME] = user.name
+            preferences[KEY_USER_EMAIL] = encryptedEmail
+            preferences[KEY_USER_NAME] = encryptedName
         }
     }
 
@@ -65,8 +72,17 @@ class DataStoreSessionManager(
     override suspend fun getCurrentUser(): User? {
         val preferences = context.dataStore.data.firstOrNull() ?: return null
         val id = preferences[KEY_USER_ID] ?: return null
-        val email = preferences[KEY_USER_EMAIL] ?: return null
-        val name = preferences[KEY_USER_NAME] ?: return null
+        val rawEmail = preferences[KEY_USER_EMAIL] ?: return null
+        val rawName = preferences[KEY_USER_NAME] ?: return null
+
+        val email = cryptoManager.decrypt(rawEmail)
+        val name = cryptoManager.decrypt(rawName)
         return User(id = id, email = email, name = name)
+    }
+
+    override suspend fun getAuthToken(): String? {
+        val preferences = context.dataStore.data.firstOrNull() ?: return null
+        val rawToken = preferences[KEY_AUTH_TOKEN] ?: return null
+        return cryptoManager.decrypt(rawToken)
     }
 }

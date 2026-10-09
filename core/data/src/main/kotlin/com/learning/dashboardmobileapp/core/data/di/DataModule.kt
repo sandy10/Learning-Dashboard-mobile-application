@@ -2,6 +2,8 @@ package com.learning.dashboardmobileapp.core.data.di
 
 import com.learning.dashboardmobileapp.core.data.repository.DefaultAuthRepository
 import com.learning.dashboardmobileapp.core.data.repository.OfflineFirstCourseRepository
+import com.learning.dashboardmobileapp.core.data.security.CryptoManager
+import com.learning.dashboardmobileapp.core.data.security.KeystoreCryptoManager
 import com.learning.dashboardmobileapp.core.data.session.DataStoreSessionManager
 import com.learning.dashboardmobileapp.core.data.session.SessionManager
 import com.learning.dashboardmobileapp.core.domain.repository.AuthRepository
@@ -20,7 +22,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
 val dataModule = module {
-    single<SessionManager> { DataStoreSessionManager(androidContext()) }
+    single<CryptoManager> { KeystoreCryptoManager() }
+    single<SessionManager> { DataStoreSessionManager(androidContext(), get()) }
     single { EmailValidator() }
 
     single<CourseRepository> {

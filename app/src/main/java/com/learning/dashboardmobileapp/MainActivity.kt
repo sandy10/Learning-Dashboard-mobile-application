@@ -13,9 +13,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Security: Enable FLAG_SECURE to prevent screen capture, screen recording,
-        // and sensitive recent tasks thumbnail leakage
-        SecurityUtils.enableSecureWindow(window)
+        // Security: FLAG_SECURE can be enabled for production releases.
+        // It is set to false here so that screen recording, video demonstration,
+        // and Android Studio Device Mirroring capture all screens properly without a black screen.
+        SecurityUtils.enableSecureWindow(window, enabled = false)
 
         enableEdgeToEdge()
         setContent {

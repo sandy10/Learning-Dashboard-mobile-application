@@ -13,12 +13,17 @@ object SecurityUtils {
     /**
      * Secures the target activity window against screen capture, screen recording,
      * and recent tasks thumbnail snapshot leaks in the OS task switcher.
+     * Set enabled = true for hardened release builds; set enabled = false for demo video recording.
      */
-    fun enableSecureWindow(window: Window) {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
+    fun enableSecureWindow(window: Window, enabled: Boolean = false) {
+        if (enabled) {
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE
+            )
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        }
     }
 
     /**

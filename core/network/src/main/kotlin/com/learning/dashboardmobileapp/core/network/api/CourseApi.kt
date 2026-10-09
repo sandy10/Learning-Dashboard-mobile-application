@@ -1,5 +1,6 @@
 package com.learning.dashboardmobileapp.core.network.api
 
+import com.learning.dashboardmobileapp.core.domain.util.CourseConstants
 import com.learning.dashboardmobileapp.core.network.model.CourseDto
 import com.learning.dashboardmobileapp.core.network.monitor.NetworkMonitor
 import kotlinx.coroutines.delay
@@ -31,7 +32,7 @@ class MockCourseApi(
 
         // Connectivity check: either simulated offline OR actual device is offline
         if (_simulateOffline.value || !networkMonitor.isCurrentlyOnline()) {
-            throw IOException("Network unavailable. Could not reach server.")
+            throw IOException(CourseConstants.ERROR_NETWORK_COULD_NOT_REACH)
         }
 
         return MockData.getInitialCourses()

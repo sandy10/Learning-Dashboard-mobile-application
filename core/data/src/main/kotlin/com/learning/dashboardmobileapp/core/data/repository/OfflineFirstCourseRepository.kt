@@ -8,6 +8,7 @@ import com.learning.dashboardmobileapp.core.domain.model.CourseDetails
 import com.learning.dashboardmobileapp.core.domain.repository.CourseRepository
 import com.learning.dashboardmobileapp.core.domain.util.AppError
 import com.learning.dashboardmobileapp.core.domain.util.AppResult
+import com.learning.dashboardmobileapp.core.domain.util.CourseConstants
 import com.learning.dashboardmobileapp.core.domain.util.ProgressCalculator
 import com.learning.dashboardmobileapp.core.network.api.CourseApi
 import kotlinx.coroutines.CoroutineDispatcher
@@ -47,9 +48,9 @@ class OfflineFirstCourseRepository(
             courseDao.upsertPreservingLocalCompletion(courseEntities, lessonEntities)
             AppResult.Success(Unit)
         } catch (e: IOException) {
-            AppResult.Error(AppError.Network(e.message ?: "Failed to connect to server"))
+            AppResult.Error(AppError.Network(e.message ?: CourseConstants.ERROR_FAILED_TO_CONNECT))
         } catch (e: Exception) {
-            AppResult.Error(AppError.Unknown(e, e.message ?: "Unexpected error occurred"))
+            AppResult.Error(AppError.Unknown(e, e.message ?: CourseConstants.ERROR_UNEXPECTED))
         }
     }
 
@@ -70,7 +71,7 @@ class OfflineFirstCourseRepository(
             courseDao.updateCourseProgress(lesson.courseId, newProgress)
             AppResult.Success(Unit)
         } catch (e: Exception) {
-            AppResult.Error(AppError.Unknown(e, e.message ?: "Failed to update lesson"))
+            AppResult.Error(AppError.Unknown(e, e.message ?: CourseConstants.ERROR_FAILED_TO_UPDATE_LESSON))
         }
     }
 

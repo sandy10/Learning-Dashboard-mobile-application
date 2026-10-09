@@ -2,7 +2,7 @@ package com.learning.dashboardmobileapp.core.domain.util
 
 class EmailValidator {
 
-    private val emailRegex = Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+    private val emailRegex = Regex(AuthConstants.EMAIL_REGEX_PATTERN)
 
     fun isValid(email: String): Boolean {
         val trimmed = email.trim()
@@ -10,6 +10,6 @@ class EmailValidator {
     }
 
     fun validatePassword(password: String): Boolean {
-        return password.length >= 6
+        return password.length >= AuthConstants.MIN_PASSWORD_LENGTH
     }
 }

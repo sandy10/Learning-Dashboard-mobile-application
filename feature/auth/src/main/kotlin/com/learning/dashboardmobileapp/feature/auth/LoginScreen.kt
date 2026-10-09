@@ -60,6 +60,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.learning.dashboardmobileapp.core.ui.UiConstants
 import com.learning.dashboardmobileapp.core.ui.theme.AppBackground
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryIndigo
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryIndigoVariant
@@ -124,7 +125,7 @@ fun LoginScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.School,
-                    contentDescription = "Learning Dashboard Logo",
+                    contentDescription = UiConstants.LOGO_CONTENT_DESC,
                     tint = PrimaryIndigo,
                     modifier = Modifier.size(38.dp)
                 )
@@ -133,7 +134,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(
-                text = "Learning Dashboard",
+                text = UiConstants.APP_NAME,
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onBackground
@@ -143,7 +144,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = "Learn. Track. Grow.",
+                text = UiConstants.APP_TAGLINE,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     color = Color(0xFF6C757D),
                     fontWeight = FontWeight.Medium
@@ -166,7 +167,7 @@ fun LoginScreen(
                 ) {
                     // Email Label
                     Text(
-                        text = "Email",
+                        text = UiConstants.EMAIL_LABEL,
                         style = MaterialTheme.typography.labelLarge.copy(
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.onSurface
@@ -178,7 +179,7 @@ fun LoginScreen(
                     OutlinedTextField(
                         value = state.email,
                         onValueChange = { onAction(LoginUiAction.OnEmailChanged(it)) },
-                        placeholder = { Text("learner@example.com") },
+                        placeholder = { Text(UiConstants.EMAIL_PLACEHOLDER) },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Email,
@@ -205,7 +206,7 @@ fun LoginScreen(
 
                     // Password Label
                     Text(
-                        text = "Password",
+                        text = UiConstants.PASSWORD_LABEL,
                         style = MaterialTheme.typography.labelLarge.copy(
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.onSurface
@@ -217,7 +218,7 @@ fun LoginScreen(
                     OutlinedTextField(
                         value = state.password,
                         onValueChange = { onAction(LoginUiAction.OnPasswordChanged(it)) },
-                        placeholder = { Text("••••••••••••") },
+                        placeholder = { Text(UiConstants.PASSWORD_PLACEHOLDER) },
                         leadingIcon = {
                             Icon(
                                 imageVector = Icons.Default.Lock,
@@ -229,7 +230,7 @@ fun LoginScreen(
                             IconButton(onClick = { onAction(LoginUiAction.OnTogglePasswordVisibility) }) {
                                 Icon(
                                     imageVector = if (state.isPasswordVisible) Icons.Default.VisibilityOff else Icons.Default.Visibility,
-                                    contentDescription = if (state.isPasswordVisible) "Hide password" else "Show password",
+                                    contentDescription = if (state.isPasswordVisible) UiConstants.HIDE_PASSWORD_DESC else UiConstants.SHOW_PASSWORD_DESC,
                                     tint = Color(0xFF6C757D)
                                 )
                             }
@@ -302,7 +303,7 @@ fun LoginScreen(
                             )
                         } else {
                             Text(
-                                text = "Login",
+                                text = UiConstants.LOGIN_BUTTON_TEXT,
                                 style = MaterialTheme.typography.titleMedium.copy(
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White
@@ -333,7 +334,7 @@ fun LoginScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "DEMO ACCOUNT",
+                            text = UiConstants.DEMO_ACCOUNT_TITLE,
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFF6C757D),
@@ -352,7 +353,7 @@ fun LoginScreen(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = "Auto-fill",
+                                text = UiConstants.AUTO_FILL_BUTTON_TEXT,
                                 style = MaterialTheme.typography.labelMedium.copy(
                                     color = PrimaryIndigo,
                                     fontWeight = FontWeight.Bold
@@ -369,7 +370,7 @@ fun LoginScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Email:",
+                            text = UiConstants.DEMO_EMAIL_LABEL,
                             style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
                         )
                         Surface(
@@ -377,7 +378,7 @@ fun LoginScreen(
                             color = Color(0xFFF1F3F5)
                         ) {
                             Text(
-                                text = "learner@example.com",
+                                text = UiConstants.DEMO_EMAIL_VALUE,
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
                                     fontWeight = FontWeight.Medium
@@ -395,7 +396,7 @@ fun LoginScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Password:",
+                            text = UiConstants.DEMO_PASSWORD_LABEL,
                             style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
                         )
                         Surface(
@@ -403,7 +404,7 @@ fun LoginScreen(
                             color = Color(0xFFF1F3F5)
                         ) {
                             Text(
-                                text = "password123",
+                                text = UiConstants.DEMO_PASSWORD_VALUE,
                                 style = MaterialTheme.typography.bodySmall.copy(
                                     fontFamily = androidx.compose.ui.text.font.FontFamily.Monospace,
                                     fontWeight = FontWeight.Medium

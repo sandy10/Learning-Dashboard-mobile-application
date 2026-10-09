@@ -69,6 +69,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.learning.dashboardmobileapp.core.domain.model.Course
 import com.learning.dashboardmobileapp.core.domain.model.CourseDetails
 import com.learning.dashboardmobileapp.core.domain.model.Lesson
+import com.learning.dashboardmobileapp.core.ui.UiConstants
 import com.learning.dashboardmobileapp.core.ui.components.LearningProgressBar
 import com.learning.dashboardmobileapp.core.ui.components.LessonStatusChip
 import com.learning.dashboardmobileapp.core.ui.theme.AppBackground
@@ -116,11 +117,11 @@ fun CourseDetailScreen(
                 title = {
                     Column {
                         Text(
-                            text = "Learning Dashboard",
+                            text = UiConstants.APP_NAME,
                             style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFF6C757D))
                         )
                         Text(
-                            text = "Course Overview",
+                            text = UiConstants.COURSE_OVERVIEW_TITLE,
                             style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                         )
                     }
@@ -129,7 +130,7 @@ fun CourseDetailScreen(
                     IconButton(onClick = { onAction(CourseDetailUiAction.OnNavigateBack) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
+                            contentDescription = UiConstants.BACK_BUTTON_DESC,
                             tint = Color(0xFF191C1E)
                         )
                     }
@@ -174,7 +175,7 @@ fun CourseDetailScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Text(
-                    text = "Course not found",
+                    text = UiConstants.COURSE_NOT_FOUND,
                     style = MaterialTheme.typography.titleMedium
                 )
             }
@@ -211,7 +212,7 @@ fun CourseDetailScreen(
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = "Synced",
+                                    text = UiConstants.SYNCED_BADGE,
                                     style = MaterialTheme.typography.labelSmall.copy(
                                         color = TertiarySuccessText,
                                         fontWeight = FontWeight.SemiBold
@@ -222,7 +223,7 @@ fun CourseDetailScreen(
 
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = "Online",
+                                text = UiConstants.ONLINE_BADGE,
                                 style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFF6C757D))
                             )
                             Spacer(modifier = Modifier.width(6.dp))
@@ -255,7 +256,7 @@ fun CourseDetailScreen(
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = "Lessons",
+                                text = UiConstants.LESSONS_SECTION_TITLE,
                                 style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                             )
                             Spacer(modifier = Modifier.width(8.dp))
@@ -264,7 +265,7 @@ fun CourseDetailScreen(
                                 color = Color(0xFFE9ECEF)
                             ) {
                                 Text(
-                                    text = "${details.lessons.size} Listed",
+                                    text = "${details.lessons.size} ${UiConstants.LISTED_SUFFIX}",
                                     style = MaterialTheme.typography.labelSmall.copy(
                                         color = Color(0xFF495057),
                                         fontSize = 11.sp
@@ -275,7 +276,7 @@ fun CourseDetailScreen(
                         }
 
                         Text(
-                            text = "Module 1 of 4",
+                            text = UiConstants.MODULE_INFO,
                             style = MaterialTheme.typography.labelSmall.copy(
                                 color = PrimaryIndigo,
                                 fontWeight = FontWeight.SemiBold
@@ -315,9 +316,9 @@ fun CourseDetailScreen(
                         ) {
                             Box(
                                 modifier = Modifier
-                                    .size(42.dp)
-                                    .clip(CircleShape)
-                                    .background(PrimaryLight),
+                                .size(42.dp)
+                                .clip(CircleShape)
+                                .background(PrimaryLight),
                                 contentAlignment = Alignment.Center
                             ) {
                                 Icon(
@@ -332,7 +333,7 @@ fun CourseDetailScreen(
 
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = "Downloaded Course Content",
+                                    text = UiConstants.DOWNLOADED_CONTENT_TITLE,
                                     style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold)
                                 )
                                 Spacer(modifier = Modifier.height(2.dp))
@@ -402,7 +403,7 @@ fun CourseMainHeaderCard(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "Certified",
+                        text = UiConstants.CERTIFIED_BADGE,
                         style = MaterialTheme.typography.labelSmall.copy(
                             color = TertiarySuccessText,
                             fontWeight = FontWeight.SemiBold
@@ -422,7 +423,7 @@ fun CourseMainHeaderCard(
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "Instructor: ${course.instructor}",
+                text = "${UiConstants.INSTRUCTOR_DETAIL_PREFIX}${course.instructor}",
                 style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
             )
 
@@ -450,7 +451,7 @@ fun CourseMainHeaderCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "$completedCount of ${course.lessonsCount} lessons completed",
+                            text = "$completedCount of ${course.lessonsCount} ${UiConstants.LESSONS_COMPLETED_SUFFIX}",
                             style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFF6C757D))
                         )
 
@@ -463,7 +464,7 @@ fun CourseMainHeaderCard(
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = "On Track",
+                                text = UiConstants.ON_TRACK_BADGE,
                                 style = MaterialTheme.typography.labelSmall.copy(
                                     color = TertiarySuccessText,
                                     fontWeight = FontWeight.SemiBold
@@ -487,19 +488,19 @@ fun QuickStatsRow(
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
         QuickStatCard(
-            label = "Total Time",
-            value = "${course.totalDurationHours} hrs",
+            label = UiConstants.TOTAL_TIME_LABEL,
+            value = "${course.totalDurationHours} ${UiConstants.HOURS_SUFFIX}",
             valueColor = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f)
         )
         QuickStatCard(
-            label = "Downloaded",
+            label = UiConstants.DOWNLOADED_LABEL,
             value = "${course.lessonsCount} / ${course.lessonsCount}",
             valueColor = Color(0xFF00687A),
             modifier = Modifier.weight(1f)
         )
         QuickStatCard(
-            label = "Quiz Score",
+            label = UiConstants.QUIZ_SCORE_LABEL,
             value = "${course.quizScorePercent}%",
             valueColor = TertiarySuccessText,
             modifier = Modifier.weight(1f)
@@ -581,7 +582,7 @@ fun LessonItemCard(
                     ) {
                         Icon(
                             imageVector = Icons.Default.CheckCircle,
-                            contentDescription = "Completed",
+                            contentDescription = UiConstants.STATUS_COMPLETED,
                             tint = TertiarySuccessText,
                             modifier = Modifier.size(20.dp)
                         )
@@ -613,7 +614,7 @@ fun LessonItemCard(
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
-                        text = "${lesson.durationMinutes} mins • ${lesson.type.displayName}",
+                        text = "${lesson.durationMinutes} ${UiConstants.MINS_SEPARATOR}${lesson.type.displayName}",
                         style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
                     )
                 }
@@ -694,7 +695,7 @@ fun LessonItemCard(
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
                                 Text(
-                                    text = "Mark as Completed",
+                                    text = UiConstants.MARK_AS_COMPLETED_BUTTON,
                                     style = MaterialTheme.typography.labelMedium.copy(
                                         fontWeight = FontWeight.Bold,
                                         color = Color.White
@@ -721,7 +722,7 @@ fun LessonItemCard(
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
-                                    text = "Lesson Completed",
+                                    text = UiConstants.LESSON_COMPLETED_BANNER,
                                     style = MaterialTheme.typography.labelMedium.copy(
                                         color = TertiarySuccessText,
                                         fontWeight = FontWeight.Bold

@@ -6,6 +6,7 @@ import com.learning.dashboardmobileapp.core.domain.usecase.LogoutUseCase
 import com.learning.dashboardmobileapp.core.domain.usecase.ObserveCoursesUseCase
 import com.learning.dashboardmobileapp.core.domain.usecase.RefreshCoursesUseCase
 import com.learning.dashboardmobileapp.core.domain.usecase.ToggleSimulateOfflineUseCase
+import com.learning.dashboardmobileapp.core.domain.util.CourseConstants
 import com.learning.dashboardmobileapp.core.domain.util.onError
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -106,9 +107,9 @@ class DashboardViewModel(
                 _uiState.update {
                     it.copy(
                         errorMessage = if (hasCachedData) {
-                            "Offline: Showing cached courses"
+                            CourseConstants.ERROR_COURSES_OFFLINE
                         } else {
-                            "Unable to load courses. Please check your network connection."
+                            CourseConstants.ERROR_COURSES_NETWORK
                         }
                     )
                 }

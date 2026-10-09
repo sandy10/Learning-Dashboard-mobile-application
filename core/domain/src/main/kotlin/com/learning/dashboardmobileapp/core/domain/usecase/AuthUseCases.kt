@@ -4,6 +4,7 @@ import com.learning.dashboardmobileapp.core.domain.model.User
 import com.learning.dashboardmobileapp.core.domain.repository.AuthRepository
 import com.learning.dashboardmobileapp.core.domain.util.AppError
 import com.learning.dashboardmobileapp.core.domain.util.AppResult
+import com.learning.dashboardmobileapp.core.domain.util.AuthConstants
 import com.learning.dashboardmobileapp.core.domain.util.EmailValidator
 import kotlinx.coroutines.flow.Flow
 
@@ -14,10 +15,10 @@ class LoginUseCase(
     suspend operator fun invoke(email: String, password: String): AppResult<User> {
         val trimmedEmail = email.trim()
         if (!validator.isValid(trimmedEmail)) {
-            return AppResult.Error(AppError.Validation("Please enter a valid email address"))
+            return AppResult.Error(AppError.Validation(AuthConstants.ERROR_EMAIL_INVALID))
         }
         if (!validator.validatePassword(password)) {
-            return AppResult.Error(AppError.Validation("Password must be at least 6 characters"))
+            return AppResult.Error(AppError.Validation(AuthConstants.ERROR_PASSWORD_LENGTH))
         }
         return repository.login(trimmedEmail, password)
     }

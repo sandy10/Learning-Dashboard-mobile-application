@@ -1,5 +1,7 @@
 package com.learning.dashboardmobileapp.core.network.api
 
+import com.learning.dashboardmobileapp.core.domain.util.AuthConstants
+import com.learning.dashboardmobileapp.core.domain.util.CourseConstants
 import com.learning.dashboardmobileapp.core.network.model.LoginRequestDto
 import com.learning.dashboardmobileapp.core.network.model.LoginResponseDto
 import com.learning.dashboardmobileapp.core.network.monitor.NetworkMonitor
@@ -21,12 +23,12 @@ class MockAuthApi(
 
         // Connectivity check
         if (courseApi.simulateOfflineFlow.value || !networkMonitor.isCurrentlyOnline()) {
-            throw IOException("Network connection error. Please check your internet.")
+            throw IOException(CourseConstants.ERROR_NETWORK_CONNECTION)
         }
 
         // Validate mock credentials:
         // Any valid email with "password123" succeeds
-        if (request.password == "password123") {
+        if (request.password == AuthConstants.DEMO_PASSWORD) {
             return LoginResponseDto(
                 token = "mock-jwt-token-xyz-123456",
                 userId = "usr_1001",
@@ -34,7 +36,7 @@ class MockAuthApi(
                 name = request.email.substringBefore("@").replaceFirstChar { it.uppercase() }
             )
         } else {
-            throw IllegalArgumentException("Invalid email or password. Hint: password123")
+            throw IllegalArgumentException(AuthConstants.ERROR_INVALID_CREDENTIALS)
         }
     }
 }

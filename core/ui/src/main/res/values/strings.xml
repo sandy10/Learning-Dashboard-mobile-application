@@ -1,0 +1,77 @@
+<resources>
+    <!-- App & General -->
+    <string name="app_name">Learning Dashboard</string>
+    <string name="app_tagline">Learn. Track. Grow.</string>
+    <string name="logo_content_desc">Learning Dashboard Logo</string>
+
+    <!-- Auth & Login -->
+    <string name="email_label">Email</string>
+    <string name="email_placeholder">learner@example.com</string>
+    <string name="password_label">Password</string>
+    <string name="password_placeholder">••••••••••••</string>
+    <string name="show_password_desc">Show password</string>
+    <string name="hide_password_desc">Hide password</string>
+    <string name="login_button_text">Login</string>
+    <string name="demo_account_title">DEMO ACCOUNT</string>
+    <string name="auto_fill_button_text">Auto-fill</string>
+    <string name="demo_email_label">Email:</string>
+    <string name="demo_password_label">Password:</string>
+    <string name="error_email_required">Email is required</string>
+    <string name="error_email_invalid">Please enter a valid email address</string>
+    <string name="error_password_required">Password is required</string>
+    <string name="error_password_length">Password must be at least 6 characters</string>
+    <string name="error_invalid_credentials">Invalid email or password. Use demo account hint: password123</string>
+    <string name="error_network_unavailable">Network unavailable. Please check your connection.</string>
+    <string name="error_login_failed">Login failed. Please try again.</string>
+
+    <!-- Dashboard -->
+    <string name="greeting_text">Good Morning</string>
+    <string name="dashboard_subtitle">Keep learning and make progress today.</string>
+    <string name="student_profile_desc">Student Profile</string>
+    <string name="logout_desc">Log out</string>
+    <string name="active_curriculum_title">ACTIVE CURRICULUM</string>
+    <string name="your_learning_title">Your Learning</string>
+    <string name="my_courses_title">My Courses</string>
+    <string name="sorted_by_recent">Sorted by Recent</string>
+    <string name="network_connection_failed">Network connection failed. Unable to fetch courses.</string>
+    <string name="offline_ready_badge">Offline ready</string>
+    <string name="cached_indicator">cached</string>
+    <string name="continue_button_text">Continue</string>
+    <string name="lessons_suffix">Lessons</string>
+    <string name="courses_offline_notice">Offline: Showing cached courses</string>
+    <string name="courses_network_error">Unable to load courses. Please check your network connection.</string>
+
+    <!-- Course Details -->
+    <string name="course_overview_title">Course Overview</string>
+    <string name="back_button_desc">Back</string>
+    <string name="synced_badge">Synced</string>
+    <string name="online_badge">Online</string>
+    <string name="certified_badge">Certified</string>
+    <string name="on_track_badge">On Track</string>
+    <string name="total_time_label">Total Time</string>
+    <string name="downloaded_label">Downloaded</string>
+    <string name="quiz_score_label">Quiz Score</string>
+    <string name="lessons_section_title">Lessons</string>
+    <string name="listed_suffix">Listed</string>
+    <string name="module_info">Module 1 of 4</string>
+    <string name="downloaded_content_title">Downloaded Course Content</string>
+    <string name="mark_as_completed_button">Mark as Completed</string>
+    <string name="lesson_completed_banner">Lesson Completed</string>
+    <string name="course_not_found">Course not found</string>
+    <string name="lesson_completed_success">Lesson marked as completed! Course progress updated.</string>
+    <string name="error_could_not_update_lesson">Could not update lesson status</string>
+
+    <!-- Common Components -->
+    <string name="status_synced_ready">Synced &amp; Ready offline</string>
+    <string name="status_offline_mode">Offline Mode</string>
+    <string name="button_online_mode">Online Mode</string>
+    <string name="button_simulate_offline">Simulate Offline</string>
+    <string name="progress_label">Progress</string>
+    <string name="status_completed">Completed</string>
+    <string name="status_pending">Pending</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="retry_button">Retry</string>
+    <string name="no_courses_available">No Courses Available</string>
+    <string name="empty_courses_description">You haven\'t enrolled in any courses yet or the cache is empty.</string>
+    <string name="refresh_button">Refresh</string>
+</resources>

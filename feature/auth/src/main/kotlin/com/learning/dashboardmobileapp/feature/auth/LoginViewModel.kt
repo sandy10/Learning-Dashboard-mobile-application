@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.learning.dashboardmobileapp.core.domain.usecase.LoginUseCase
 import com.learning.dashboardmobileapp.core.domain.util.AppError
 import com.learning.dashboardmobileapp.core.domain.util.AppResult
+import com.learning.dashboardmobileapp.core.domain.util.AuthConstants
 import com.learning.dashboardmobileapp.core.domain.util.EmailValidator
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -53,8 +54,8 @@ class LoginViewModel(
             LoginUiAction.OnAutoFillDemo -> {
                 _uiState.update {
                     it.copy(
-                        email = "learner@example.com",
-                        password = "password123",
+                        email = AuthConstants.DEMO_EMAIL,
+                        password = AuthConstants.DEMO_PASSWORD,
                         emailError = null,
                         passwordError = null,
                         errorMessage = null
@@ -82,18 +83,18 @@ class LoginViewModel(
         var passwordErr: String? = null
 
         if (email.isEmpty()) {
-            emailErr = "Email is required"
+            emailErr = AuthConstants.ERROR_EMAIL_REQUIRED
             hasError = true
         } else if (!emailValidator.isValid(email)) {
-            emailErr = "Please enter a valid email address"
+            emailErr = AuthConstants.ERROR_EMAIL_INVALID
             hasError = true
         }
 
         if (password.isEmpty()) {
-            passwordErr = "Password is required"
+            passwordErr = AuthConstants.ERROR_PASSWORD_REQUIRED
             hasError = true
         } else if (!emailValidator.validatePassword(password)) {
-            passwordErr = "Password must be at least 6 characters"
+            passwordErr = AuthConstants.ERROR_PASSWORD_LENGTH
             hasError = true
         }
 
@@ -118,10 +119,10 @@ class LoginViewModel(
 
                 is AppResult.Error -> {
                     val errorMsg = when (val error = result.error) {
-                        is AppError.InvalidCredentials -> "Invalid email or password. Use demo account hint: password123"
-                        is AppError.Network -> "Network unavailable. Please check your connection."
+                        is AppError.InvalidCredentials -> AuthConstants.ERROR_INVALID_CREDENTIALS
+                        is AppError.Network -> AuthConstants.ERROR_NETWORK_UNAVAILABLE
                         is AppError.Validation -> error.message
-                        else -> "Login failed. Please try again."
+                        else -> AuthConstants.ERROR_LOGIN_FAILED
                     }
                     _uiState.update {
                         it.copy(

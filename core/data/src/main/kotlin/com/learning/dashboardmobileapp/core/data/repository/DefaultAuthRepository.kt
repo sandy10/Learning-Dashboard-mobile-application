@@ -6,6 +6,7 @@ import com.learning.dashboardmobileapp.core.domain.model.User
 import com.learning.dashboardmobileapp.core.domain.repository.AuthRepository
 import com.learning.dashboardmobileapp.core.domain.util.AppError
 import com.learning.dashboardmobileapp.core.domain.util.AppResult
+import com.learning.dashboardmobileapp.core.domain.util.AuthConstants
 import com.learning.dashboardmobileapp.core.network.api.AuthApi
 import com.learning.dashboardmobileapp.core.network.model.LoginRequestDto
 import kotlinx.coroutines.CoroutineDispatcher
@@ -27,11 +28,11 @@ class DefaultAuthRepository(
             sessionManager.saveSession(response.token, user)
             AppResult.Success(user)
         } catch (e: IOException) {
-            AppResult.Error(AppError.Network(e.message ?: "Network error during login"))
+            AppResult.Error(AppError.Network(e.message ?: AuthConstants.ERROR_NETWORK_LOGIN))
         } catch (e: IllegalArgumentException) {
             AppResult.Error(AppError.InvalidCredentials)
         } catch (e: Exception) {
-            AppResult.Error(AppError.Unknown(e, e.message ?: "Authentication failed"))
+            AppResult.Error(AppError.Unknown(e, e.message ?: AuthConstants.ERROR_AUTH_FAILED))
         }
     }
 
@@ -40,7 +41,7 @@ class DefaultAuthRepository(
             sessionManager.clearSession()
             AppResult.Success(Unit)
         } catch (e: Exception) {
-            AppResult.Error(AppError.Unknown(e, "Logout failed"))
+            AppResult.Error(AppError.Unknown(e, AuthConstants.ERROR_LOGOUT_FAILED))
         }
     }
 

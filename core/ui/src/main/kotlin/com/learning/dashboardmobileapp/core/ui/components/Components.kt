@@ -47,6 +47,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.learning.dashboardmobileapp.core.ui.UiConstants
 import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingBg
 import com.learning.dashboardmobileapp.core.ui.theme.NeutralPendingText
 import com.learning.dashboardmobileapp.core.ui.theme.PrimaryIndigo
@@ -75,7 +76,7 @@ fun OfflineStatusBanner(
             val bgColor = if (isEffectivelyOnline) TertiarySuccessLight else Color(0xFFFFF3CD)
             val textColor = if (isEffectivelyOnline) TertiarySuccessText else Color(0xFF856404)
             val icon = if (isEffectivelyOnline) Icons.Default.CheckCircle else Icons.Default.CloudOff
-            val statusText = if (isEffectivelyOnline) "Synced & Ready offline" else "Offline Mode"
+            val statusText = if (isEffectivelyOnline) UiConstants.STATUS_SYNCED_READY else UiConstants.STATUS_OFFLINE_MODE
 
             Row(
                 modifier = Modifier
@@ -119,7 +120,7 @@ fun OfflineStatusBanner(
                 modifier = Modifier.height(34.dp)
             ) {
                 Text(
-                    text = if (isSimulateOffline) "Online Mode" else "Simulate Offline",
+                    text = if (isSimulateOffline) UiConstants.BUTTON_ONLINE_MODE else UiConstants.BUTTON_SIMULATE_OFFLINE,
                     style = MaterialTheme.typography.labelSmall.copy(
                         color = if (isSimulateOffline) Color(0xFFBA1A1A) else MaterialTheme.colorScheme.onSurface,
                         fontWeight = FontWeight.Medium
@@ -143,7 +144,7 @@ fun LearningProgressBar(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Progress",
+                text = UiConstants.PROGRESS_LABEL,
                 style = MaterialTheme.typography.labelMedium.copy(color = Color(0xFF495057))
             )
             Text(
@@ -180,7 +181,7 @@ fun LessonStatusChip(
 ) {
     val bgColor = if (isCompleted) TertiarySuccessLight else NeutralPendingBg
     val textColor = if (isCompleted) TertiarySuccessText else NeutralPendingText
-    val text = if (isCompleted) "Completed" else "Pending"
+    val text = if (isCompleted) UiConstants.STATUS_COMPLETED else UiConstants.STATUS_PENDING
 
     Row(
         modifier = modifier
@@ -244,7 +245,7 @@ fun ErrorCard(
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Something went wrong",
+                text = UiConstants.SOMETHING_WENT_WRONG,
                 style = MaterialTheme.typography.titleMedium.copy(
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFBA1A1A)
@@ -268,7 +269,7 @@ fun ErrorCard(
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Retry")
+                Text(UiConstants.RETRY_BUTTON)
             }
         }
     }
@@ -296,12 +297,12 @@ fun EmptyCoursesCard(
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = "No Courses Available",
+                text = UiConstants.NO_COURSES_AVAILABLE,
                 style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text = "You haven't enrolled in any courses yet or the cache is empty.",
+                text = UiConstants.EMPTY_COURSES_DESCRIPTION,
                 style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D)),
                 textAlign = TextAlign.Center
             )
@@ -312,7 +313,7 @@ fun EmptyCoursesCard(
             ) {
                 Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(16.dp))
                 Spacer(modifier = Modifier.width(6.dp))
-                Text("Refresh")
+                Text(UiConstants.REFRESH_BUTTON)
             }
         }
     }

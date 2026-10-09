@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.learning.dashboardmobileapp.core.domain.usecase.MarkLessonCompletedUseCase
 import com.learning.dashboardmobileapp.core.domain.usecase.ObserveCourseDetailsUseCase
 import com.learning.dashboardmobileapp.core.domain.util.AppResult
+import com.learning.dashboardmobileapp.core.domain.util.CourseConstants
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +21,7 @@ class CourseDetailViewModel(
 ) : ViewModel() {
 
     private val courseId: Long = checkNotNull(savedStateHandle.get<Long>("courseId")) {
-        "courseId must be provided as a navigation argument"
+        CourseConstants.ERROR_COURSE_ID_REQUIRED
     }
 
     private val _uiState = MutableStateFlow(CourseDetailUiState(isLoading = true))
@@ -83,14 +84,14 @@ class CourseDetailViewModel(
                             expandedLessonId = null // collapse upon completion
                         )
                     }
-                    _uiEvent.send(CourseDetailUiEvent.ShowSnackbar("Lesson marked as completed! Course progress updated."))
+                    _uiEvent.send(CourseDetailUiEvent.ShowSnackbar(CourseConstants.MSG_LESSON_COMPLETED_SUCCESS))
                 }
 
                 is AppResult.Error -> {
                     _uiState.update {
                         it.copy(
                             isMarkingComplete = false,
-                            errorMessage = "Could not update lesson status"
+                            errorMessage = CourseConstants.ERROR_COULD_NOT_UPDATE_LESSON
                         )
                     }
                 }

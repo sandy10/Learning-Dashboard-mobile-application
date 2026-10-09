@@ -21,12 +21,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.automirrored.filled.MenuBook
-import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Code
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Layers
 import androidx.compose.material.icons.filled.School
 import androidx.compose.material.icons.filled.Terminal
@@ -58,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.learning.dashboardmobileapp.core.domain.model.Course
+import com.learning.dashboardmobileapp.core.ui.UiConstants
 import com.learning.dashboardmobileapp.core.ui.components.EmptyCoursesCard
 import com.learning.dashboardmobileapp.core.ui.components.ErrorCard
 import com.learning.dashboardmobileapp.core.ui.components.LearningProgressBar
@@ -129,15 +128,15 @@ fun DashboardScreen(
                         Column {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(
-                                    text = "Good Morning",
+                                    text = UiConstants.GREETING_TEXT,
                                     style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
-                                Text(text = "👋", fontSize = 18.sp)
+                                Text(text = UiConstants.GREETING_EMOJI, fontSize = 18.sp)
                             }
                             Spacer(modifier = Modifier.height(2.dp))
                             Text(
-                                text = "Keep learning and make progress today.",
+                                text = UiConstants.DASHBOARD_SUBTITLE,
                                 style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
                             )
                         }
@@ -152,15 +151,15 @@ fun DashboardScreen(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.School,
-                                    contentDescription = "Student Profile",
+                                    contentDescription = UiConstants.STUDENT_PROFILE_DESC,
                                     tint = PrimaryIndigo,
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
                             IconButton(onClick = { onAction(DashboardUiAction.OnLogout) }) {
                                 Icon(
-                                    imageVector = Icons.Default.ExitToApp,
-                                    contentDescription = "Log out",
+                                    imageVector = Icons.AutoMirrored.Filled.ExitToApp,
+                                    contentDescription = UiConstants.LOGOUT_DESC,
                                     tint = Color(0xFF6C757D)
                                 )
                             }
@@ -198,11 +197,11 @@ fun DashboardScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "My Courses",
+                            text = UiConstants.MY_COURSES_TITLE,
                             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold)
                         )
                         Text(
-                            text = "Sorted by Recent",
+                            text = UiConstants.SORTED_BY_RECENT,
                             style = MaterialTheme.typography.labelSmall.copy(
                                 color = PrimaryIndigo,
                                 fontWeight = FontWeight.SemiBold
@@ -226,7 +225,7 @@ fun DashboardScreen(
                     DashboardPreviewMode.ERROR -> {
                         item {
                             ErrorCard(
-                                message = "Network connection failed. Unable to fetch courses.",
+                                message = UiConstants.NETWORK_CONNECTION_FAILED,
                                 onRetry = { onAction(DashboardUiAction.OnRefresh) }
                             )
                         }
@@ -307,10 +306,10 @@ fun StatePreviewSelector(
             DashboardPreviewMode.entries.forEach { mode ->
                 val isSelected = currentMode == mode
                 val label = when (mode) {
-                    DashboardPreviewMode.NORMAL -> "Normal"
-                    DashboardPreviewMode.SKELETON -> "Skeleton"
-                    DashboardPreviewMode.EMPTY -> "Empty"
-                    DashboardPreviewMode.ERROR -> "Error"
+                    DashboardPreviewMode.NORMAL -> UiConstants.PREVIEW_MODE_NORMAL
+                    DashboardPreviewMode.SKELETON -> UiConstants.PREVIEW_MODE_SKELETON
+                    DashboardPreviewMode.EMPTY -> UiConstants.PREVIEW_MODE_EMPTY
+                    DashboardPreviewMode.ERROR -> UiConstants.PREVIEW_MODE_ERROR
                 }
 
                 Box(
@@ -354,7 +353,7 @@ fun ActiveCurriculumSummaryCard(
         ) {
             Column {
                 Text(
-                    text = "ACTIVE CURRICULUM",
+                    text = UiConstants.ACTIVE_CURRICULUM_TITLE,
                     style = MaterialTheme.typography.labelSmall.copy(
                         color = Color(0xFF6C757D),
                         fontWeight = FontWeight.Bold,
@@ -363,12 +362,12 @@ fun ActiveCurriculumSummaryCard(
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Your Learning",
+                    text = UiConstants.YOUR_LEARNING_TITLE,
                     style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "$totalEnrolled Courses enrolled",
+                    text = "$totalEnrolled ${UiConstants.COURSES_ENROLLED_SUFFIX}",
                     style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
                 )
             }
@@ -446,7 +445,7 @@ fun CourseCard(
                     )
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
-                        text = "Instructor : ${course.instructor}",
+                        text = "${UiConstants.INSTRUCTOR_PREFIX}${course.instructor}",
                         style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFF6C757D))
                     )
                 }
@@ -457,7 +456,7 @@ fun CourseCard(
                     color = Color(0xFFF8F9FA)
                 ) {
                     Text(
-                        text = "Offline ready",
+                        text = UiConstants.OFFLINE_READY_BADGE,
                         style = MaterialTheme.typography.labelSmall.copy(
                             color = Color(0xFF6C757D),
                             fontSize = 11.sp
@@ -482,7 +481,7 @@ fun CourseCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "$completedCount of ${course.lessonsCount} lessons completed",
+                    text = "$completedCount of ${course.lessonsCount} ${UiConstants.LESSONS_COMPLETED_SUFFIX}",
                     style = MaterialTheme.typography.labelSmall.copy(color = Color(0xFF6C757D))
                 )
 
@@ -495,7 +494,7 @@ fun CourseCard(
                     )
                     Spacer(modifier = Modifier.width(3.dp))
                     Text(
-                        text = "cached",
+                        text = UiConstants.CACHED_INDICATOR,
                         style = MaterialTheme.typography.labelSmall.copy(
                             color = TertiarySuccessText,
                             fontWeight = FontWeight.SemiBold
@@ -521,7 +520,7 @@ fun CourseCard(
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Text(
-                        text = "${course.lessonsCount} Lessons",
+                        text = "${course.lessonsCount} ${UiConstants.LESSONS_SUFFIX}",
                         style = MaterialTheme.typography.bodySmall.copy(
                             color = Color(0xFF495057),
                             fontWeight = FontWeight.Medium
@@ -536,7 +535,7 @@ fun CourseCard(
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
                 ) {
                     Text(
-                        text = "Continue",
+                        text = UiConstants.CONTINUE_BUTTON_TEXT,
                         style = MaterialTheme.typography.labelMedium.copy(
                             fontWeight = FontWeight.Bold,
                             color = Color.White
